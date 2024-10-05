@@ -1,26 +1,50 @@
-/*!
-* Start Bootstrap - Simple Sidebar v6.0.6 (https://startbootstrap.com/template/simple-sidebar)
-* Copyright 2013-2023 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-simple-sidebar/blob/master/LICENSE)
-*/
-// 
-// Scripts
-// 
+function menuShow(){
+    let ul = document.querySelector('.navbar ul');
 
-window.addEventListener('DOMContentLoaded', event => {
-
-    // Toggle the side navigation
-    const sidebarToggle = document.body.querySelector('#sidebarToggle');
-    if (sidebarToggle) {
-        // Uncomment Below to persist sidebar toggle between refreshes
-        // if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
-        //     document.body.classList.toggle('sb-sidenav-toggled');
-        // }
-        sidebarToggle.addEventListener('click', event => {
-            event.preventDefault();
-            document.body.classList.toggle('sb-sidenav-toggled');
-            localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
-        });
+    if(ul.classList.contains("open")) {
+        ul.classList.remove("open");
     }
+    else {
+        ul.classList.add("open");
+    }
+}
 
-});
+const box = document.querySelector(".container");
+const imagens = document.querySelectorAll(".container img");
+const prevButton = document.querySelector(".prev");
+const nextButton = document.querySelector(".next");
+
+let contador = 0;
+
+function slider() {
+    contador++;
+    if (contador > imagens.length - 1) {
+        contador = 0;
+    }
+    updateSlider();
+}
+
+function updateSlider() {
+    box.style.transform = `translateX(${-contador * 800}px)`;
+}
+
+function showPrevImage() {
+    contador--;
+    if (contador < 0) {
+        contador = imagens.length - 1;
+    }
+    updateSlider();
+}
+
+function showNextImage() {
+    contador++;
+    if (contador > imagens.length - 1) {
+        contador = 0;
+    }
+    updateSlider();
+}
+
+prevButton.addEventListener("click", showPrevImage);
+nextButton.addEventListener("click", showNextImage);
+
+setInterval(slider, 6000);
