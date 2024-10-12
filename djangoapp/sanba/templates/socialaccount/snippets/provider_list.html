@@ -1,4 +1,5 @@
 {% load allauth socialaccount %}
+{% load static %}
 {% get_providers as socialaccount_providers %}
 {% if socialaccount_providers %}
     {% element provider_list %}
@@ -10,9 +11,8 @@
                     {% endelement %}
                 {% endfor %}
             {% endif %}
-            {% provider_login_url provider process=process scope=scope auth_params=auth_params as href %}
-            {% element provider name=provider.name provider_id=provider.id href=href %}
-            {% endelement %}
+            
+            <a title="Google" href="/accounts/google/login/?process=login"><img src="{% static "image/google.png" %}" alt="" style="width:30px; height:30px;"></a>
         {% endfor %}
     {% endelement %}
 {% endif %}
